@@ -1,0 +1,87 @@
+--- a/src/xdgshellwindow.cpp
++++ b/src/xdgshellwindow.cpp
+@@ -18,6 +18,7 @@
+ #include "core/pixelgrid.h"
+ #include "decorations/decorationbridge.h"
+ #include "input.h"
++#include "scene/windowitem.h"
+ #include "killprompt.h"
+ #include "placement.h"
+ #include "tiles/tilemanager.h"
+@@ -107,7 +108,15 @@
+ void XdgSurfaceWindow::scheduleConfigure()
+ {
+     if (!isDeleted()) {
+-        m_configureTimer->start();
++        static const int resizeFps = qEnvironmentVariableIntValue("KWIN_GPU_RESIZE_FPS");
++        const auto resizing = workspace()->moveResizeWindow();
++        const bool preview = resizeFps > 0 && resizing && resizing->isInteractiveResize()
++            && property("_kwinResizePreview").toBool();
++        if (preview && m_configureTimer->isActive()) {
++            return; // Keep the deadline; subsequent requests replace the pending size.
++        }
++        m_configureTimer->setTimerType(Qt::PreciseTimer);
++        m_configureTimer->start(preview ? 1000 / std::clamp(resizeFps, 15, 144) : 0);
+     }
+ }
+ 
+@@ -262,6 +271,24 @@
+ void XdgSurfaceWindow::moveResizeInternal(const RectF &rect, MoveResizeMode mode)
+ {
+     Q_EMIT frameGeometryAboutToChange();
++
++    static const int resizeFps = qEnvironmentVariableIntValue("KWIN_GPU_RESIZE_FPS");
++    auto resizing = workspace()->moveResizeWindow();
++    if (resizeFps > 0 && resizing && resizing->isInteractiveResize()
++        && windowType() == WindowType::Normal && windowItem()) {
++        if (!property("_kwinResizePreview").toBool()) {
++            setProperty("_kwinResizePreview", true);
++            connect(resizing, &Window::interactiveMoveResizeFinished, this, [this] {
++                scheduleConfigure(); // Final size/state is sent immediately on release/cancel.
++                // Keep a slow client's image at the requested size until it commits.
++                // Also update immediately on Escape, even if the client is stalled.
++                if (windowItem()) {
++                    windowItem()->refreshResizePreview();
++                }
++            }, Qt::SingleShotConnection);
++        }
++        windowItem()->refreshResizePreview();
++    }
+ 
+     if (mode != MoveResizeMode::Move) {
+         // xdg-shell doesn't support fractional sizes, so the requested
+--- a/src/scene/windowitem.h
++++ b/src/scene/windowitem.h
+@@ -58,6 +58,8 @@
+ 
+     void refVisible(int reason);
+     void unrefVisible(int reason);
++
++    void refreshResizePreview() { updateGeometry(); }
+ 
+     void elevate();
+     void deelevate();
+--- a/src/scene/windowitem.cpp
++++ b/src/scene/windowitem.cpp
+@@ -205,8 +205,19 @@
+ 
+ void WindowItem::updateGeometry()
+ {
+-    setPosition(m_window->pos());
+-    m_windowContainer->setSize(m_window->frameGeometry().size());
++    const auto frame = m_window->frameGeometry();
++    auto visual = frame;
++    if (m_window->property("_kwinResizePreview").toBool() && !frame.isEmpty()) {
++        visual = m_window->moveResizeGeometry();
++        if (visual.isEmpty()) visual = frame;
++        if (!workspace()->moveResizeWindow() && visual == frame) {
++            m_window->setProperty("_kwinResizePreview", false);
++        }
++    }
++    setPosition(visual.topLeft());
++    setTransform(frame.isEmpty() ? QTransform() : QTransform::fromScale(
++        visual.width() / frame.width(), visual.height() / frame.height()));
++    m_windowContainer->setSize(frame.size());
+ }
+ 
+ void WindowItem::addSurfaceItemDamageConnects(Item *item)

@@ -1,0 +1,1 @@
+{"KPlugin":{"Name":"Resize Pacing","Description":"Combine excess pointer resize updates at the display refresh rate.","License":"GPL-2.0-or-later","Version":"0.2","EnabledByDefault":false,"Category":"Tools"}}

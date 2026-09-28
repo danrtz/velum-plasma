@@ -1,0 +1,41 @@
+#!/usr/bin/python
+"""Select the tested resize build, retaining KDE's stock wrapper and recovery."""
+import json, os, subprocess, sys
+from pathlib import Path
+root = Path(__file__).resolve().parents[1]
+reason = 'tested build'
+try:
+    manifest = json.loads((root / 'manifest.json').read_text())
+    if (not isinstance(manifest, dict)
+        or manifest.get('packages') != ['kwin', 'qt6-base', 'kdecoration']
+        or not isinstance(manifest.get('versions'), str)
+        or manifest.get('fps') != 30):
+        raise ValueError('Unexpected manifest')
+except (OSError, ValueError):
+    manifest = {}
+    reason = 'installation metadata unavailable'
+if not manifest or not all((root / name).is_file() for name in [
+        'runtime/kwin_wayland', 'runtime/libkwin.so.6',
+        'runtime/kwin/effects/plugins/velum_chatgpt_resize_v2.so']):
+    reason = 'installation incomplete'
+elif (root / 'disabled').exists():
+    reason = 'disabled'
+elif os.environ.get('KWIN_RESTART_COUNT', '0') != '0':
+    reason = 'recovering after compositor restart'
+else:
+    result = subprocess.run(['/usr/bin/pacman', '-Q', *manifest['packages']], capture_output=True, text=True)
+    if result.returncode or result.stdout != manifest['versions']:
+        reason = 'installed KDE/Qt versions changed'
+custom = reason == 'tested build'
+executable = str(root / 'runtime/kwin_wayland') if custom else '/usr/bin/kwin_wayland'
+if '--velum-check' in sys.argv:
+    print(json.dumps({'custom': custom, 'executable': executable, 'reason': reason, 'redraw_fps': manifest['fps'] if custom else None}))
+    sys.exit(0)
+os.environ['PATH'] = os.environ.pop('VELUM_KWIN_ORIGINAL_PATH', os.environ['PATH'])
+if custom:
+    os.environ['KWIN_GPU_RESIZE_FPS'] = str(manifest['fps'])
+else:
+    os.environ.pop('KWIN_GPU_RESIZE_FPS', None)
+print('Velum resize: ' + reason, file=sys.stderr, flush=True)
+subprocess.run(['/usr/bin/kwriteconfig6', '--file', 'kwinrc', '--group', 'Script-hyprkwin', '--key', 'GpuResizePreview', 'true' if custom else 'false'], check=False)
+os.execv(executable, [executable, *sys.argv[1:]])

@@ -1,6 +1,6 @@
 {
-  "GapsIn": 4,
-  "GapsOut": 6,
+  "GapsIn": 2,
+  "GapsOut": 4,
   "ResizeStep": 50,
   "BorderRadius": 12,
   "FocusIndicator": 2,

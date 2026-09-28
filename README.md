@@ -33,6 +33,8 @@ The settings icon at the left of the bar also opens settings. The screen edges r
 
 Automatic dwindle tiling uses bundled [HyprKwin](https://github.com/DGBooth/HyprKwin) 0.12.2 with animated tile transitions. New windows split from the focused window; dialogs and common game wrappers float. Dragging rearranges tiles on mouse release; resizing a shared edge updates neighboring tiles while dragging. This does not exactly reproduce Hyprland's drag behavior. Conflicting shortcuts are backed up and reassigned; unused HyprKwin defaults stay unbound. Existing competing tilers must be disabled first. Source revision, license and validation details are in [shell/kde/tiling/README.md](shell/kde/tiling/README.md).
 
+The launcher uses an app's explicit “New Window” action when one is provided, and otherwise uses its normal KDE launch behavior; single-window apps cannot be forced to support extra windows. Empty media modules and idle visualizers are hidden. Optional [window rounding and hardware tuning notes](docs/local-tuning.md), [resize input pacing](shell/kde/resize-pacer/README.md), and the [experimental GPU resize build](experiments/gpu-resize/README.md) document the latest desktop work. Native compositor experiments are not enabled by the standard installer. ChatGPT's remaining resize heat is unresolved; stretch-until-release is off.
+
 KDE manages monitor modes, HDR, VRR, and scaling. This port preserves those settings. Night Light uses KDE’s global schedule, so changing it affects all displays. Workspaces are shared across displays, as they are in KWin. Each connected screen gets the original per-screen shell surfaces and widget layout.
 
 ## Local installation

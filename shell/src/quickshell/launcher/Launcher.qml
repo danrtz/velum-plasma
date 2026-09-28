@@ -943,7 +943,7 @@ PanelWindow {
     function launchApp(appName, desktopId) {
         let entry = DesktopEntries.byId(desktopId);
         if (entry) {
-            Quickshell.execDetached(["kstart", "--application", desktopId]);
+            Quickshell.execDetached(["python3", Caching.qsDir + "/launcher/launch_app.py", desktopId]);
         }
         if (Caching.qsDir) {
             Quickshell.execDetached(["python3", Caching.qsDir + "/launcher/app_rank.py", "--log-launch", "--name", appName]);

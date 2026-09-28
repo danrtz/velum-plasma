@@ -25,7 +25,7 @@ Base: Serpantinum `fc327946b5ee8697bddaae1021fe3db5e378deb0` (2.1.10), AGPL-3.0-
 | Secure lock | Original lock visuals adapted to KScreenLocker. Clock and expanded dashboard rendered, including a real notification. Notification cards/actions/read/dismiss/mute and hold-button sound APIs are connected. Native mute round-trip and sound start/stop passed. KDE owns password checking and the successful-unlock result. |
 | Polkit | Original prompt owns the agent slot while Velum runs. A real authorization request appeared and was canceled without entering credentials. |
 | Persistence and recovery | All four services active after target restart. Stop restores both native desktop and polkit services; start returns to Velum. Recovery uses a short precise timer to avoid rapidly starting/stopping Plasma during a Velum restart. |
-| Installation | Native helpers rebuilt. A second installation preserved the initial rollback baseline and shortcuts. No remote is configured and nothing has been published. |
+| Installation | Native helpers rebuilt. A second installation preserved the initial rollback baseline and shortcuts. The development snapshot is published in the Velum fork; the installer itself performs no publishing. |
 
 ## Architecture
 
@@ -69,3 +69,13 @@ Final alignment check: modular bar ends measured 9 pixels from each screen edge 
 HyprKwin passed 76 upstream unit tests, isolated window/divider animation tests, live Win-drag retile-on-release and shared-boundary resizing, and live focus/swaps, float/re-tile, desktop move/follow, minimize/fullscreen/maximize restoration, split rotation and close/reflow. All 42 intended shortcuts have the correct owner. Host KWin retained PID 1147. Reboot and multi-monitor checks remain outstanding.
 
 Fixed the lock wallpaper startup race: image loading waits for the native snapshot cache path, and the fallback retains a reactive binding. KDE's greeter testing mode rendered the blurred wallpaper successfully; the next real lock remains a user check. Authentication code was unchanged. No publishing was performed.
+
+## September 28 follow-up audit
+
+The updates hide inactive media/visualizer modules in both bar orientations, prefer explicit application new-window actions, and tighten default tiling gaps. A missing desktop-entry fallback was corrected during review. The launcher keeps normal behavior for apps that do not offer a new-window action.
+
+The optional native input pacer and GPU-preview sources are included with version limits and rollback documentation. The GPU-preview addon now defaults to live redraws with no extra ChatGPT throttling; the rejected hold-until-release mode is disabled. The addon also supplies the required transformed-window clipping correction. Both native extensions rebuilt successfully. An isolated default-mode check produced 87 resize events with or without the addon, exact final width 633, Escape width 600, and successful unload. The core patch applies cleanly to the original KWin 6.7.5 files. Selector checks cover normal selection, changed packages, crash recovery, explicit disable, a missing required plugin, and malformed/missing manifests. Staging and its relocated runtime selection passed.
+
+Live read-only verification found KWin, Velum and CoolerControl active, both resize extensions loaded, hold disabled and divisor 1. CPU/pump fan modes remained firmware-controlled; the chassis header remained software-controlled. Firefox's user-confirmed improvement is retained; ChatGPT thermal behavior remains unresolved. See the experiment's evidence and limits rather than treating it as a universal performance fix. These checks do not establish full feature parity or exhaustive multi-monitor reliability.
+
+Python and shell syntax checks passed. JSON validation found one pre-existing empty asset, `shell/src/assets/themes/Nightfox.json`; that preset remains a known issue. Optional native builds, personal settings, raw diagnostic captures and machine-specific fan-control installers are excluded from publication. Rounded-window settings and the fan setup are documented separately in `docs/local-tuning.md`.

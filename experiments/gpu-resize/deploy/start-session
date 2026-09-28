@@ -1,0 +1,6 @@
+#!/bin/sh
+VELUM_KWIN_ORIGINAL_PATH="$PATH"
+export VELUM_KWIN_ORIGINAL_PATH
+PATH="$(dirname "$0")/bin:$PATH"
+export PATH
+exec /usr/bin/kwin_wayland_wrapper "$@"

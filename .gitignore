@@ -7,3 +7,9 @@ shell/kde/velum-recorder
 # Generated KDE lock package preview
 shell/contents/
 shell/lock-package/
+
+# Optional native experiments: publish source, not local builds or captures.
+build
+experiments/gpu-resize/kwin-6.7.5/
+experiments/gpu-resize/deploy/runtime/
+experiments/gpu-resize/deploy/manifest.json

@@ -175,6 +175,8 @@ Item {
     }
 
     function isModuleActive(moduleId) {
+        if (moduleId === "media" && !mediaWidget.isMediaActive) return false;
+        if (moduleId === "vis" && !MprisController.isPlaying) return false;
         if (moduleId === "timedate") return flatTopArr.indexOf("timedate") !== -1 || flatCenterArr.indexOf("timedate") !== -1 || flatBottomArr.indexOf("timedate") !== -1 || flatTopArr.indexOf("time") !== -1 || flatCenterArr.indexOf("time") !== -1 || flatBottomArr.indexOf("time") !== -1 || flatTopArr.indexOf("clock") !== -1 || flatCenterArr.indexOf("clock") !== -1 || flatBottomArr.indexOf("clock") !== -1;
         if (moduleId === "info") return flatTopArr.indexOf("info") !== -1 || flatCenterArr.indexOf("info") !== -1 || flatBottomArr.indexOf("info") !== -1 || flatTopArr.indexOf("indicator") !== -1 || flatCenterArr.indexOf("indicator") !== -1 || flatBottomArr.indexOf("indicator") !== -1 || flatTopArr.indexOf("indicators") !== -1 || flatCenterArr.indexOf("indicators") !== -1 || flatBottomArr.indexOf("indicators") !== -1 || flatTopArr.indexOf("record") !== -1 || flatCenterArr.indexOf("record") !== -1 || flatBottomArr.indexOf("record") !== -1;
         return flatTopArr.indexOf(moduleId) !== -1 || flatCenterArr.indexOf(moduleId) !== -1 || flatBottomArr.indexOf(moduleId) !== -1;
