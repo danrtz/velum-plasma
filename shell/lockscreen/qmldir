@@ -1,0 +1,17 @@
+module Velum.Native
+plugin velumnative
+singleton NativeState 1.0 NativeState.qml
+singleton ThemeBackend 1.0 ThemeBackend.qml
+singleton Scaler 1.0 Scaler.qml
+singleton Config 1.0 Config.qml
+singleton I18n 1.0 I18n.qml
+singleton Caching 1.0 Caching.qml
+singleton SystemInfo 1.0 SystemInfo.qml
+singleton Location 1.0 Location.qml
+singleton DateTime 1.0 DateTime.qml
+singleton Weather 1.0 Weather.qml
+singleton SysData 1.0 SysData.qml
+singleton Cava 1.0 Cava.qml
+singleton MprisController 1.0 MprisController.qml
+singleton NotificationManager 1.0 NotificationManager.qml
+singleton Sounds 1.0 Sounds.qml

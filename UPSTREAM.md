@@ -1,0 +1,71 @@
+# Upstream provenance
+
+Serpantinum commit `fc327946b5ee8697bddaae1021fe3db5e378deb0`, 2.1.10. Original files retain their upstream license. KDE adapters and native lock integration are listed in PORTING.md.
+
+Changed upstream source files:
+
+- `src/assets/matugen/config-static.toml`
+- `src/assets/matugen/config.toml`
+- `src/quickshell/Main.qml`
+- `src/quickshell/Shell.qml`
+- `src/quickshell/bar/Bar.qml`
+- `src/quickshell/bar/modules/InfoWidget.qml`
+- `src/quickshell/bar/modules/system/BatWidget.qml`
+- `src/quickshell/bar/modules/system/KbWidget.qml`
+- `src/quickshell/bar/modules/system/SysMonWidget.qml`
+- `src/quickshell/bar/modules/workspaces/WorkspacesWidget.qml`
+- `src/quickshell/bar/sidemodules/SideInfoWidget.qml`
+- `src/quickshell/bar/sidemodules/system/SideBatWidget.qml`
+- `src/quickshell/bar/sidemodules/system/SideKbWidget.qml`
+- `src/quickshell/bar/sidemodules/system/SideSysMonWidget.qml`
+- `src/quickshell/bar/sidemodules/workspaces/SideWorkspacesWidget.qml`
+- `src/quickshell/clipboard/Clipboard.qml`
+- `src/quickshell/dock/Dock.qml`
+- `src/quickshell/guide/AboutTab.qml`
+- `src/quickshell/guide/IdleTab.qml`
+- `src/quickshell/guide/display/DisplayMainTab.qml`
+- `src/quickshell/guide/display/DisplayWidgetsTab.qml`
+- `src/quickshell/guide/display/SavePresetPopup.qml`
+- `src/quickshell/guide/notifications/NotificationsTab.qml`
+- `src/quickshell/guide/theme/ThemeTab.qml`
+- `src/quickshell/guide/wellbeing/focus_daemon.py`
+- `src/quickshell/guide/wellbeing/get_stats.py`
+- `src/quickshell/idle/Idle.qml`
+- `src/quickshell/launcher/Launcher.qml`
+- `src/quickshell/lock/Lock.qml`
+- `src/quickshell/network/NetworkPopup.qml`
+- `src/quickshell/notifications/NotificationPopups.qml`
+- `src/quickshell/qmldir`
+- `src/quickshell/quickactions/actions/Timer.qml`
+- `src/quickshell/reusables/ClickButton.qml`
+- `src/quickshell/reusables/FillButton.qml`
+- `src/quickshell/reusables/IconButton.qml`
+- `src/quickshell/reusables/NotificationBox.qml`
+- `src/quickshell/reusables/PasswordInput.qml`
+- `src/quickshell/reusables/qmldir`
+- `src/quickshell/screenshot/ScreenshotOverlay.qml`
+- `src/quickshell/singletons/audio/Cava.qml`
+- `src/quickshell/singletons/environment/BlueLight.qml`
+- `src/quickshell/singletons/system/Caching.qml`
+- `src/quickshell/singletons/system/Config.qml`
+- `src/quickshell/singletons/system/CurrentFocus.qml`
+- `src/quickshell/singletons/system/Updater.qml`
+- `src/quickshell/singletons/theme/Matugen.qml`
+- `src/quickshell/singletons/theme/ThemeBackend.qml`
+- `src/quickshell/singletons/widgetcontrols/ClipboardController.qml`
+- `src/quickshell/singletons/widgetcontrols/LauncherController.qml`
+- `src/quickshell/singletons/widgetcontrols/WidgetSync.qml`
+- `src/quickshell/wallpaper/WallpaperPicker.qml`
+- `src/quickshell/widgets/faces/MusicFaceLyrics.qml`
+- `src/scripts/blue_light_filter.sh`
+- `src/scripts/brightness.sh`
+- `src/scripts/caching.sh`
+- `src/scripts/config.sh`
+- `src/scripts/current_focus.sh`
+- `src/scripts/first_launch.sh`
+- `src/scripts/lock.sh`
+- `src/scripts/monitors_detect.sh`
+- `src/scripts/qs_manager.sh`
+- `src/scripts/screenshot.sh`
+- `src/scripts/system/exit.sh`
+- `src/scripts/updater.py`

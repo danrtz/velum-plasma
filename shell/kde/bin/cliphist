@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+exec /usr/bin/cliphist -db-path "${XDG_CACHE_HOME:-$HOME/.cache}/velum/clipboard.db" "$@"

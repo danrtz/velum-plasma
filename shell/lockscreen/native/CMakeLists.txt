@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.21)
+project(VelumNative LANGUAGES CXX)
+set(CMAKE_AUTOMOC ON)
+find_package(Qt6 REQUIRED COMPONENTS Core Qml DBus)
+add_library(velumnative MODULE plugin.cpp)
+target_link_libraries(velumnative PRIVATE Qt6::Core Qt6::Qml Qt6::DBus)
+set_target_properties(velumnative PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/..")

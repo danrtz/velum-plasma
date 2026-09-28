@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -e
+root="$(cd -- "$(dirname -- "$(readlink -f -- "$0")")/.." && pwd)"
+case "${1:-}" in
+    screenshot) shift; exec bash "$root/src/scripts/screenshot.sh" "$@" ;;
+    ipc) shift; exec quickshell -p "$root/src/quickshell/Shell.qml" ipc "$@" ;;
+    lock) exec bash "$root/src/scripts/lock.sh" ;;
+    restore) exec python3 "$root/kde/install.py" --restore ;;
+    *) exec bash "$root/src/scripts/qs_manager.sh" "$@" ;;
+esac

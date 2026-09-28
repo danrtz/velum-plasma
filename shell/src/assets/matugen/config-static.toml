@@ -1,0 +1,4 @@
+[config]
+reload_apps = false
+
+[templates]

@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 3.21)
+project(VelumRecorder LANGUAGES C CXX)
+set(CMAKE_AUTOMOC ON)
+find_package(Qt6 REQUIRED COMPONENTS Gui Qml Quick WaylandClient)
+qt_add_executable(velum-recorder main.cpp)
+qt_generate_wayland_protocol_client_sources(velum-recorder FILES ${CMAKE_CURRENT_SOURCE_DIR}/screencast.xml)
+target_link_libraries(velum-recorder PRIVATE Qt6::Gui Qt6::Qml Qt6::Quick Qt6::WaylandClient)
+set_target_properties(velum-recorder PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/..")

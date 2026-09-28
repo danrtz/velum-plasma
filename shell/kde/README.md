@@ -1,0 +1,1 @@
+KDE adaptation uses a KWin event observer and private runtime JSON to connect the original Quickshell UI to KWin workspaces, windows, fullscreen state, focus, and monitor selection. KDE's authenticated screen locker remains responsible for locking. Native display/HDR configuration is not replaced.

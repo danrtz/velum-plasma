@@ -1,2 +1,9 @@
-src/assets/languages/add.py
-changelog.py
+__pycache__/
+*.pyc
+
+*.so
+shell/kde/velum-recorder
+
+# Generated KDE lock package preview
+shell/contents/
+shell/lock-package/

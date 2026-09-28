@@ -1,0 +1,15 @@
+{
+  "GapsIn": 4,
+  "GapsOut": 6,
+  "ResizeStep": 50,
+  "BorderRadius": 12,
+  "FocusIndicator": 2,
+  "PreserveSplit": true,
+  "StartOnFirstDesktop": false,
+  "PerOutputWorkspaces": false,
+  "PointerFollowsFocus": false,
+  "WarnKeyConflicts": false,
+  "DragToRetile": true,
+  "TileDialogs": false,
+  "WindowRules": "float, class:^(quickshell|plasmashell|krunner|yakuake|gamescope|wine.*|steam_app_.*)$"
+}
