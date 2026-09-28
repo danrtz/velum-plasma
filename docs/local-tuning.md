@@ -18,7 +18,7 @@ InactiveCornerRadius=12
 UseSquircleShape=false
 IncludeDialogs=true
 IncludeNormalWindows=true
-DisableRoundFullScreen=false
+DisableRoundFullScreen=true
 DisableRoundMaximize=false
 DisableRoundTile=false
 Exclusions=quickshell
@@ -32,7 +32,7 @@ ShadowSize=0
 InactiveShadowSize=0
 ```
 
-Excluding Quickshell preserves its own rounded surfaces. Removing duplicate outlines and shadows avoids the doubled corner appearance. Fullscreen/maximized rounding is a visual preference; disable it if desired. Native effects need compatibility checks after KWin upgrades.
+Excluding Quickshell preserves its own rounded surfaces. Removing duplicate outlines and shadows avoids the doubled corner appearance. Fullscreen windows retain square corners; normal, tiled and maximized windows keep the 12-pixel rounding. Native effects need compatibility checks after KWin upgrades.
 
 ## Resize behavior
 
