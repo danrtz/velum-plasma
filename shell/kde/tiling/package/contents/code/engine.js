@@ -508,7 +508,20 @@ function createEngine(userConfig) {
         if (!s || !s.rect) return false;
         var size = dir === "h" ? s.rect.width : s.rect.height;
         if (size <= 0) return false;
+        // Preserve the opposite divider when resizing an enclosing split,
+        // matching Hyprland's dwindle smart-resize compensation.
+        var inner = null;
+        for (var node = leaf; node.parent !== s; node = node.parent) {
+            if (node.parent.dir === dir) { inner = node.parent; break; }
+        }
+        var pos = dir === "h" ? "x" : "y", extent = dir === "h" ? "width" : "height";
+        var fixed = inner && inner.rect ? inner.rect[pos] + inner.rect[extent] * inner.ratio : null;
         s.ratio = clamp(s.ratio + deltaPx / size, MIN_SHARE, 1 - MIN_SHARE);
+        place(s, s.rect);
+        if (fixed !== null && inner.dir === dir && inner.rect && inner.rect[extent] > 0) {
+            inner.ratio = clamp((fixed - inner.rect[pos]) / inner.rect[extent], MIN_SHARE, 1 - MIN_SHARE);
+            place(inner, inner.rect);
+        }
         return true;
     }
 
